@@ -3,6 +3,7 @@
 
 <form [formGroup]="miFormulario" (ngSubmit)="guardar()">
 
+<!-- Continentes -->
 <div class="row mb-3">
     <div class="col">  
         <label class="form-label">Continente:</label>
@@ -15,6 +16,7 @@
     </div>
 </div>
     
+<!-- Paises -->
 <div class="row mb-3">
     <div class="col">  
         <label class="form-label">Paises:</label>
@@ -26,6 +28,20 @@
         </select>
     </div>
 </div>
+
+<!-- Fronteras -->
+<div class="row mb-3">
+    <div class="col">  
+        <label class="form-label">Fronteras:</label>
+        <select class="form-control"
+                formControlName="frontera">
+            <option value="">-- Seleccione la frontera --</option>
+            <option *ngFor="let frontera of fronteras" 
+                    [value]="frontera">{{ frontera }}</option>
+        </select>
+    </div>
+</div>
+
 
     <button class="btn btn-primary float-end"
             type="submit">
