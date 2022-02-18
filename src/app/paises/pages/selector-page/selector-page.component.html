@@ -17,7 +17,7 @@
 </div>
     
 <!-- Paises -->
-<div class="row mb-3">
+<div class="row mb-3" *ngIf="this.paises.length > 0">
     <div class="col">  
         <label class="form-label">Paises:</label>
         <select class="form-control"
@@ -30,7 +30,7 @@
 </div>
 
 <!-- Fronteras -->
-<div class="row mb-3">
+<div class="row mb-3" *ngIf="this.fronteras.length > 0">
     <div class="col">  
         <label class="form-label">Fronteras:</label>
         <select class="form-control"
@@ -42,8 +42,17 @@
     </div>
 </div>
 
+    <div class="row" *ngIf="cargando">
+        <div class="col">
+            <div class="alert alert-primary">
+                Cargando...
+            </div>
+        </div>
+    </div>
+
 
     <button class="btn btn-primary float-end"
+            [disabled]="this.miFormulario.invalid"
             type="submit">
         Seleccionar
     </button>
