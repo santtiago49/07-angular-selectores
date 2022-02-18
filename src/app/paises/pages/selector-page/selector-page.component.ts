@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PaisesService } from '../../services/paises.service';
+import { PaisSmall } from '../../interfaces/paises.interface';
 
 @Component({
   selector: 'app-selector-page',
@@ -11,20 +12,31 @@ import { PaisesService } from '../../services/paises.service';
 export class SelectorPageComponent implements OnInit {
 
   miFormulario: FormGroup = this.fb.group({
-    region: ['', Validators.required ]
+    region: ['', Validators.required ],
+    pais: ['', Validators.required ],
   })
 
-  // llenar selectores
-
   regiones: string[] = []
-
+  paises  : PaisSmall[] = []
 
   constructor( private fb: FormBuilder,
                private paisesService: PaisesService ) { }
 
   ngOnInit(): void {
-    // usualmente cuando queremos traer data desde un servicio api esto se hace en el ngOnInit
     this.regiones = this.paisesService.regiones
+
+    // cuando cambre la region
+    this.miFormulario.get('region')?.valueChanges
+        .subscribe( region => {
+          console.log(region)
+
+          this.paisesService.getPaisesPorRegion(region)
+              .subscribe(paises => {
+                console.log(paises)
+                this.paises = paises
+              })
+        })
+
   }
 
   guardar(){
